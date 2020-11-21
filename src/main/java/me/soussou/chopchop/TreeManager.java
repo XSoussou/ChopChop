@@ -265,8 +265,9 @@ public class TreeManager {
 				continue;
 			}
 			
-			if(!isAxe || // In case onlyAxes is disabled
-				this.leavesMaterials.contains(block.getType())) { // Leaves shouldn't damage the tool either
+			if((!isAxe || // In case onlyAxes is disabled
+				this.leavesMaterials.contains(block.getType())) && // Leaves shouldn't damage the tool either
+					!this.isMushroom) { // Mushroom "leaves" should damage the tool
 					block.breakNaturally(item);
 				
 			} else if(meta.getDamage() < (itemMat.getMaxDurability() - 1)) {
