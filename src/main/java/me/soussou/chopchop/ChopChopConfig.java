@@ -35,6 +35,7 @@ public class ChopChopConfig {
 	public static final int MAX_TRUNK_COUNT = 150;
 	public static final int MAX_BRANCH_COUNT = 170;
 	public static final int MAX_LEAF_COUNT = 500;
+	public static final int MIN_LEAF_COUNT = 4;
 	
 	public static final Map<Material, Double> MAX_BRANCH_DISTANCE_FROM_TREE = new HashMap<>();
 	public static final Map<Material, Double> MAX_LEAF_DISTANCE_FROM_TREE = new HashMap<>();

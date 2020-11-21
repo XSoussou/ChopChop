@@ -151,6 +151,10 @@ public class TreeManager {
 				addAllTreeLeaves(logsClone, log);
 			}
 			
+			if((logsClone.size() - this.treeBlocks.size() < ChopChopConfig.MIN_LEAF_COUNT) && 
+				!this.isMushroom) 
+					return null;
+			
 			this.treeBlocks.addAll(logsClone);
 		}
 		
