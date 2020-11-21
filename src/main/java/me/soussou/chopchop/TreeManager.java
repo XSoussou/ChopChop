@@ -143,20 +143,19 @@ public class TreeManager {
 		Collections.reverse(branchesList);
 		this.treeBlocks.addAll(branchesList);
 		
-		if(ChopChopConfig.destroyLeaves || // Config: "destroy-leaves"
-				this.isMushroom) {
-			Set<Block> logsClone = new LinkedHashSet<>(this.treeBlocks);
-			
-			for(Block log : this.treeBlocks) {
-				addAllTreeLeaves(logsClone, log);
-			}
-			
-			if((logsClone.size() - this.treeBlocks.size() < ChopChopConfig.MIN_LEAF_COUNT) && 
-				!this.isMushroom) 
-					return null;
-			
-			this.treeBlocks.addAll(logsClone);
+		Set<Block> logsClone = new LinkedHashSet<>(this.treeBlocks);
+		
+		for(Block log : this.treeBlocks) {
+			addAllTreeLeaves(logsClone, log);
 		}
+		
+		if((logsClone.size() - this.treeBlocks.size() < ChopChopConfig.MIN_LEAF_COUNT) && 
+			!this.isMushroom) 
+				return null;
+		
+		if(ChopChopConfig.destroyLeaves || // Config: "destroy-leaves"
+			this.isMushroom) 
+				this.treeBlocks.addAll(logsClone);
 		
 		return this.treeBlocks;
 	}
