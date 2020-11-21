@@ -1,0 +1,22 @@
+# ChopChop Config
+
+
+# What triggers the tree chopping, different values for this are sneak, unsneak, and any.
+# Default: any
+activation-mode: any
+
+# Setting this to false will disable the durability calculations and act as if only one block was destroyed.
+# Default: true
+tools-wear-off: true
+
+# Whether or not the plugin should only accept axes.
+# Default: true
+only-axes: true
+
+# Set this to false to not break leaves.
+# Default: true
+destroy-leaves: true
+
+# Enable/disable the plugin for mushrooms.
+# Default: true
+enable-mushrooms: true

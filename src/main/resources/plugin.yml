@@ -1,0 +1,21 @@
+name: ChopChop
+author: Soussou
+description: A plugin to cut trees instantly
+version: 1.0.0
+api-version: 1.13
+main: me.soussou.chopchop.ChopChop
+commands:
+  chopchop:
+    description: Main ChopChop command
+    permission: chopchop.admin
+    usage: "§cUsage: /<command> [on | off | reload]"
+    aliases: [cc]
+permissions:
+  chopchop.deny:
+    description: Prevents the player from using the plugin
+  chopchop.admin:
+    description: Allows the use of the /chopchop command
+  chopchop.*:
+    children:
+      chopchop.deny: true
+      chopchop.admin: true
