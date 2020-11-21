@@ -15,7 +15,3 @@ permissions:
     description: Prevents the player from using the plugin
   chopchop.admin:
     description: Allows the use of the /chopchop command
-  chopchop.*:
-    children:
-      chopchop.deny: true
-      chopchop.admin: true
