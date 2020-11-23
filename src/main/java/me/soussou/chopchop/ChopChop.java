@@ -41,8 +41,6 @@ public class ChopChop extends JavaPlugin implements Listener {
 		
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
 		getCommand("chopchop").setExecutor(new ChopChopCommand());
-		
-		super.onEnable();
 	}
 	
 	public void log(Object msg) {

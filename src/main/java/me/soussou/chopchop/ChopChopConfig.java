@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import me.soussou.chopchop.util.VersionUtil;
 
@@ -56,6 +57,7 @@ public class ChopChopConfig {
 	public static boolean onlyBreakUpwards = true;
 	public static boolean allowInCreative = true;
 	public static boolean destroyLeaves = true;
+	public static boolean silkTouchDamage = true;
 	public static boolean enableMushrooms = true;
 	
 	private static ChopChop plugin = ChopChop.getInstance();
@@ -79,13 +81,16 @@ public class ChopChopConfig {
 	}
 	
 	public static void load() {
-		activationMode = plugin.getConfig().getString("activation-mode");
-		wearOff = plugin.getConfig().getBoolean("tools-wear-off");
-		onlyAxes = plugin.getConfig().getBoolean("only-axes");
-		onlyBreakUpwards = plugin.getConfig().getBoolean("only-break-upwards");
-		allowInCreative = plugin.getConfig().getBoolean("allow-in-creative");
-		destroyLeaves = plugin.getConfig().getBoolean("destroy-leaves");
-		enableMushrooms = plugin.getConfig().getBoolean("enable-mushrooms");
+		FileConfiguration config = plugin.getConfig();
+		
+		activationMode = config.getString("activation-mode");
+		wearOff = config.getBoolean("tools-wear-off");
+		onlyAxes = config.getBoolean("only-axes");
+		onlyBreakUpwards = config.getBoolean("only-break-upwards");
+		allowInCreative = config.getBoolean("allow-in-creative");
+		destroyLeaves = config.getBoolean("destroy-leaves");
+		silkTouchDamage = config.getBoolean("silk-touch-damage");
+		enableMushrooms = config.getBoolean("enable-mushrooms");
 	}
 	
 	public static void reload() {

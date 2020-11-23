@@ -130,7 +130,8 @@ public class TreeManager {
 	}
 	
 	public Set<Block> detectTree() {
-		Block baseBlock = (ChopChopConfig.onlyBreakUpwards) ? this.baseTreeBlock : getLowestTreeBlock(this.baseTreeBlock);
+		Block baseBlock = (ChopChopConfig.onlyBreakUpwards) ? // Config: "only-break-upwards"
+			this.baseTreeBlock : getLowestTreeBlock(this.baseTreeBlock);
 		
 		this.treeBlocks = getTreeTrunk(baseBlock);
 		
@@ -271,10 +272,13 @@ public class TreeManager {
 		
 		Material itemMat = item.getType();
 		boolean isAxe = ChopChopConfig.AXES_MATERIALS.contains(itemMat);
+		boolean isShears = itemMat == Material.SHEARS;
 		Damageable meta = (Damageable) item.getItemMeta();
 		
 		boolean isEnchanted = item.containsEnchantment(Enchantment.DURABILITY);
 		int unbreakingLvl = item.getEnchantmentLevel(Enchantment.DURABILITY);
+		
+		boolean silkTouchDamage = (item.containsEnchantment(Enchantment.SILK_TOUCH) && ChopChopConfig.silkTouchDamage); // Config: "silk-touch-damage"
 		
 		for(Block block : treeBlocks) {
 			
@@ -290,9 +294,12 @@ public class TreeManager {
 				continue;
 			}
 			
-			if((!isAxe || // In case onlyAxes is disabled
-				this.leavesMaterials.contains(block.getType())) && // Leaves shouldn't damage the tool either
-					!this.isMushroom) { // Mushroom "leaves" should damage the tool
+			boolean isBlockLeaf = this.leavesMaterials.contains(block.getType());
+			
+			if((!isAxe || isBlockLeaf) && 
+				!silkTouchDamage && // Leaves shouldn't damage the tool unless it has Silk Touch
+				!(isShears && isBlockLeaf) && // Shears should only get damage from the leaves
+				!this.isMushroom) { // Mushroom "leaves" should damage the tool
 					block.breakNaturally(item);
 				
 			} else if(meta.getDamage() < (itemMat.getMaxDurability() - 1)) {
@@ -313,7 +320,7 @@ public class TreeManager {
 				
 				if(PlayerUtil.unbreakingShouldDamage(unbreakingLvl)) {
 					PlayerUtil.breakItemInHand(player);
-					return;
+						return;
 				}
 				
 			} else break; // Let the unenchanted item break naturally

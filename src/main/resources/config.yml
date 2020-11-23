@@ -9,11 +9,11 @@ activation-mode: any
 # Default: true
 tools-wear-off: true
 
-# Whether or not the plugin should only accept axes.
+# Whether or not the plugin should only work with axes.
 # Default: true
 only-axes: true
 
-# Set this to false to break an entire tree regardless of what trunk block you destroyed.
+# Set this to false to break an entire tree regardless of what trunk block you destroyed first.
 # Default: true
 only-break-upwards: true
 
@@ -24,6 +24,10 @@ allow-in-creative: true
 # Set this to false to not break leaves.
 # Default: true
 destroy-leaves: true
+
+# Should looted leaves damage tools that have the Silk Touch enchantment.
+# Default: true
+silk-touch-damage: true
 
 # Enable/disable the plugin for mushrooms.
 # Default: true
