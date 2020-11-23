@@ -114,9 +114,9 @@ public class TreeManager {
 		}
 	}
 	
-	public TreeManager(Block firstTreeBlock) {
-		this.baseTreeBlock = firstTreeBlock;
-		this.treeMaterial = firstTreeBlock.getType();
+	public TreeManager(Block baseTreeBlock) {
+		this.baseTreeBlock = baseTreeBlock;
+		this.treeMaterial = baseTreeBlock.getType();
 		this.isMushroom = ChopChopConfig.MUSHROOMS_MATERIALS.containsKey(this.treeMaterial);
 		
 		if(this.isMushroom) this.leavesMaterials.addAll(ChopChopConfig.MUSHROOMS_MATERIALS.get(this.treeMaterial));
@@ -130,7 +130,9 @@ public class TreeManager {
 	}
 	
 	public Set<Block> detectTree() {
-		this.treeBlocks = getTreeTrunk();
+		Block baseBlock = (ChopChopConfig.onlyBreakUpwards) ? this.baseTreeBlock : getLowestTreeBlock(this.baseTreeBlock);
+		
+		this.treeBlocks = getTreeTrunk(baseBlock);
 		
 		Set<Block> treeBranches = new LinkedHashSet<>();
 		addAllTreeBranches(treeBranches, this.baseTreeBlock);
@@ -160,7 +162,7 @@ public class TreeManager {
 		return this.treeBlocks;
 	}
 	
-	private Set<Block> getTreeTrunk() {
+	private Set<Block> getTreeTrunk(Block treeBlock) {
 		Set<Block> trunk = new LinkedHashSet<>();
 		int oldSize, y = 0;
 		
@@ -168,7 +170,7 @@ public class TreeManager {
 			oldSize = trunk.size();
 			
 			for(Vector vector : TRUNK_RELATIVES) {
-				Block nextBlock = this.baseTreeBlock.getRelative(vector.getBlockX(), y, vector.getBlockZ());
+				Block nextBlock = treeBlock.getRelative(vector.getBlockX(), y, vector.getBlockZ());
 				
 				if(nextBlock.getType() == this.treeMaterial) {
 					trunk.add(nextBlock);
@@ -180,6 +182,27 @@ public class TreeManager {
 		} while(trunk.size() != oldSize && this.trunkCount < ChopChopConfig.MAX_TRUNK_COUNT); // Max counts act as a safety
 		
 		return trunk;
+	}
+	
+	private Block getLowestTreeBlock(Block treeBlock) {
+		Block result = treeBlock;
+		Block nextBlock = result;
+		int y = 0;
+		
+		while(nextBlock.getType() == this.treeMaterial) {
+			for(Vector vector : TRUNK_RELATIVES) {
+				nextBlock = treeBlock.getRelative(vector.getBlockX(), y, vector.getBlockZ());
+				
+				if(nextBlock.getType() == this.treeMaterial) {
+					result = nextBlock;
+					break;
+				}
+			}
+			y--;
+			
+		}
+		
+		return result;
 	}
 	
 	private void addAllTreeBranches(Set<Block> baseBlockSet, Block baseBlock) {

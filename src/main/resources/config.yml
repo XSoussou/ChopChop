@@ -13,6 +13,10 @@ tools-wear-off: true
 # Default: true
 only-axes: true
 
+# Set this to false to break an entire tree regardless of what trunk block you destroyed.
+# Default: true
+only-break-upwards: true
+
 # Enables the plugin for players in creative mode.
 # Default: true
 allow-in-creative: true

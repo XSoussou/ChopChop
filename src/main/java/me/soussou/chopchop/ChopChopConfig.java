@@ -53,6 +53,7 @@ public class ChopChopConfig {
 	public static boolean enabled = true;
 	public static boolean wearOff = true;
 	public static boolean onlyAxes = true;
+	public static boolean onlyBreakUpwards = true;
 	public static boolean allowInCreative = true;
 	public static boolean destroyLeaves = true;
 	public static boolean enableMushrooms = true;
@@ -81,6 +82,7 @@ public class ChopChopConfig {
 		activationMode = plugin.getConfig().getString("activation-mode");
 		wearOff = plugin.getConfig().getBoolean("tools-wear-off");
 		onlyAxes = plugin.getConfig().getBoolean("only-axes");
+		onlyBreakUpwards = plugin.getConfig().getBoolean("only-break-upwards");
 		allowInCreative = plugin.getConfig().getBoolean("allow-in-creative");
 		destroyLeaves = plugin.getConfig().getBoolean("destroy-leaves");
 		enableMushrooms = plugin.getConfig().getBoolean("enable-mushrooms");
