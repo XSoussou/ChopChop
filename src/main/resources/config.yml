@@ -32,3 +32,7 @@ silk-touch-damage: true
 # Enable/disable the plugin for mushrooms.
 # Default: true
 enable-mushrooms: true
+
+# Allows the plugin to collect anonymous data about the server. Collected data can be found on https://bstats.org/plugin/bukkit/ChopChop/9489
+# Default: true
+send-metrics: true

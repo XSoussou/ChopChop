@@ -59,6 +59,7 @@ public class ChopChopConfig {
 	public static boolean destroyLeaves = true;
 	public static boolean silkTouchDamage = true;
 	public static boolean enableMushrooms = true;
+	public static boolean sendMetrics = true;
 	
 	private static ChopChop plugin = ChopChop.getInstance();
 	
@@ -91,6 +92,7 @@ public class ChopChopConfig {
 		destroyLeaves = config.getBoolean("destroy-leaves");
 		silkTouchDamage = config.getBoolean("silk-touch-damage");
 		enableMushrooms = config.getBoolean("enable-mushrooms");
+		sendMetrics = config.getBoolean("send-metrics");
 	}
 	
 	public static void reload() {

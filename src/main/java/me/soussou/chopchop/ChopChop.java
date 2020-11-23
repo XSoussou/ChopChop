@@ -22,14 +22,18 @@ package me.soussou.chopchop;
 
 import java.util.logging.Logger;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ChopChop extends JavaPlugin implements Listener {
 	
+	private static final int METRICS_ID = 9489;
+	
 	private static ChopChop instance;
 	
 	private Logger logger;
+	private Metrics metrics;
 	
 	@Override
 	public void onEnable() {
@@ -41,6 +45,8 @@ public class ChopChop extends JavaPlugin implements Listener {
 		
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
 		getCommand("chopchop").setExecutor(new ChopChopCommand());
+		
+		if(ChopChopConfig.sendMetrics) metrics = new Metrics(this, METRICS_ID);
 	}
 	
 	public void log(Object msg) {
