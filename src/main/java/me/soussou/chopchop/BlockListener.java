@@ -22,6 +22,7 @@ package me.soussou.chopchop;
 
 import java.util.Set;
 
+import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,6 +40,10 @@ public class BlockListener implements Listener {
 		Player player = event.getPlayer();
 		
 		if(player.hasPermission("chopchop.deny") && !player.isOp()) return;
+		
+		if(player.getGameMode() == GameMode.CREATIVE && 
+			!ChopChopConfig.allowInCreative) // Config: "allow-in-creative"
+				return;
 		
 		if(((!player.isSneaking() && ChopChopConfig.activationMode.equalsIgnoreCase("sneak")) || 
 			(player.isSneaking() && ChopChopConfig.activationMode.equalsIgnoreCase("unsneak"))) && 

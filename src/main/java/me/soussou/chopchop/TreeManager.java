@@ -255,9 +255,12 @@ public class TreeManager {
 		
 		for(Block block : treeBlocks) {
 			
-			if(baseTreeBlock.equals(block)) continue;
+			if(this.baseTreeBlock.equals(block)) continue;
 			
-			if(this.leavesMaterials.contains(block.getType()) && !ChopChopConfig.destroyLeaves && !this.isMushroom) break; // Using break because we know all the following blocks are gonna be leaves aswell
+			if(this.leavesMaterials.contains(block.getType()) && 
+				!ChopChopConfig.destroyLeaves && 
+				!this.isMushroom) 
+					break; // Using break because we know all the following blocks are gonna be leaves aswell
 			
 			if(isCreative) { // Don't drop blocks if the player is in creative mode
 				block.setType(Material.AIR);

@@ -13,6 +13,10 @@ tools-wear-off: true
 # Default: true
 only-axes: true
 
+# Enables the plugin for players in creative mode.
+# Default: true
+allow-in-creative: true
+
 # Set this to false to not break leaves.
 # Default: true
 destroy-leaves: true
