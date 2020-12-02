@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>me.soussou</groupId>
   <artifactId>ChopChop</artifactId>
   <version>1.0.0</version>
-  <name>ChopChop</name>
+  <name>${project.artifactId}</name>
   <description>A plugin to cut trees instantly</description>
   
   <properties>
@@ -16,6 +17,7 @@
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
+    
     <repository>
       <id>CodeMC</id>
       <url>https://repo.codemc.org/repository/maven-public/</url>
@@ -29,6 +31,7 @@
       <version>1.16.4-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
+    
     <dependency>
       <groupId>org.bstats</groupId>
       <artifactId>bstats-bukkit</artifactId>
@@ -39,18 +42,29 @@
   
   <build>
     <defaultGoal>clean package</defaultGoal>
+    
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
+        
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
       </plugin>
+      
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.2.4</version>
+        
         <configuration>
           <relocations>
             <relocation>
@@ -59,12 +73,15 @@
             </relocation>
           </relocations>
         </configuration>
+        
         <executions>
           <execution>
             <phase>package</phase>
+            
             <goals>
               <goal>shade</goal>
             </goals>
+            
             <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
             </configuration>

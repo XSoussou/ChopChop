@@ -1,12 +1,12 @@
-name: ChopChop
+name: ${project.name}
 author: Soussou
-description: A plugin to cut trees instantly
-version: 1.0.0
+description: ${project.description}
+version: ${project.version}
 api-version: 1.13
 main: me.soussou.chopchop.ChopChop
 commands:
   chopchop:
-    description: Main ChopChop command
+    description: Main ${project.name} command
     permission: chopchop.admin
     usage: "§cUsage: /<command> [on | off | reload]"
     aliases: [cc]
