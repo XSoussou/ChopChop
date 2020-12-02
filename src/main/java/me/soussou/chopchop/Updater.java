@@ -21,6 +21,7 @@
 package me.soussou.chopchop;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -87,7 +88,9 @@ public class Updater {
 	
 	private String getXmlVersion(URL url) throws IOException, SAXException, ParserConfigurationException {
 		String version = "";
-		Document pom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(url.openStream());
+		
+		InputStream in = url.openStream();
+		Document pom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
 		NodeList elements = pom.getFirstChild().getChildNodes(); // Every element of the main <project> node
 		
 		for(int i = 0; i < elements.getLength(); i++) {
@@ -98,6 +101,8 @@ public class Updater {
 				break;
 			}
 		}
+		
+		in.close();
 		
 		return version;
 	}
