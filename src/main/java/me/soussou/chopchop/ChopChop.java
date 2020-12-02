@@ -32,25 +32,23 @@ public class ChopChop extends JavaPlugin implements Listener {
 	
 	private static ChopChop instance;
 	
-	private Logger logger;
+	private static Logger logger;
 	private Metrics metrics;
 	
 	@Override
 	public void onEnable() {
 		instance = this;
-		this.logger = getLogger();
+		logger = getLogger();
 		
 		saveDefaultConfig();
 		ChopChopConfig.load();
+		
+		new Updater(this);
 		
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
 		getCommand("chopchop").setExecutor(new ChopChopCommand());
 		
 		if(ChopChopConfig.sendMetrics) metrics = new Metrics(this, METRICS_ID);
-	}
-	
-	public void log(Object msg) {
-		logger.info(msg.toString());
 	}
 	
 	public static ChopChop getInstance() { return instance; }

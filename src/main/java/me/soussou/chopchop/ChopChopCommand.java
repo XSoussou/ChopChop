@@ -45,12 +45,12 @@ public class ChopChopCommand implements CommandExecutor, TabCompleter {
 		} else if(args.length == 1) {
 			if(args[0].equalsIgnoreCase("on")) {
 				ChopChopConfig.enabled = true;
-				plugin.log("Plugin enabled");
+				plugin.getLogger().info("Plugin enabled");
 				sender.sendMessage(ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Plugin " + ChatColor.GREEN + "enabled");
 				
 			} else if(args[0].equalsIgnoreCase("off")) {
 				ChopChopConfig.enabled = false;
-				plugin.log("Plugin disabled");
+				plugin.getLogger().info("Plugin disabled");
 				sender.sendMessage(ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Plugin " + ChatColor.RED + "disabled");
 				
 			} else if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {

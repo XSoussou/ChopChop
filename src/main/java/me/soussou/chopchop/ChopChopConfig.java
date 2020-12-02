@@ -100,6 +100,6 @@ public class ChopChopConfig {
 	public static void reload() {
 		plugin.reloadConfig();
 		load();
-		plugin.log("Config reloaded");
+		plugin.getLogger().info("Config reloaded");
 	}
 }
