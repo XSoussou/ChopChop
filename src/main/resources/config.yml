@@ -38,6 +38,10 @@ enable-mushrooms: true
 # Default: true
 send-metrics: true
 
+# Checks for new updates at server startup and every 6 hours.
+# Default: true
+enable-updater: true
+
 
 # Internal use only, do not edit. (Currently not implemented)
 config-version: 1

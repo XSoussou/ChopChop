@@ -60,6 +60,7 @@ public class ChopChopConfig {
 	public static boolean silkTouchDamage = true;
 	public static boolean enableMushrooms = true;
 	public static boolean sendMetrics = true;
+	public static boolean enableUpdater = true;
 	public static int configVersion = 1;
 	
 	private static ChopChop plugin = ChopChop.getInstance();
@@ -94,6 +95,7 @@ public class ChopChopConfig {
 		silkTouchDamage = config.getBoolean("silk-touch-damage");
 		enableMushrooms = config.getBoolean("enable-mushrooms");
 		sendMetrics = config.getBoolean("send-metrics");
+		enableUpdater = config.getBoolean("enable-updater");
 		configVersion = config.getInt("config-version");
 	}
 	

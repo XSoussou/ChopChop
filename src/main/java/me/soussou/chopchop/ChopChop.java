@@ -20,8 +20,6 @@
 
 package me.soussou.chopchop;
 
-import java.util.logging.Logger;
-
 import org.bstats.bukkit.Metrics;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,24 +30,24 @@ public class ChopChop extends JavaPlugin implements Listener {
 	
 	private static ChopChop instance;
 	
-	private static Logger logger;
+	private Updater updater;
 	private Metrics metrics;
 	
 	@Override
 	public void onEnable() {
 		instance = this;
-		logger = getLogger();
+		this.updater = new Updater(this);
 		
 		saveDefaultConfig();
 		ChopChopConfig.load();
-		
-		new Updater(this);
 		
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
 		getCommand("chopchop").setExecutor(new ChopChopCommand());
 		
 		if(ChopChopConfig.sendMetrics) metrics = new Metrics(this, METRICS_ID);
 	}
+	
+	public Updater getUpdater() { return this.updater; }
 	
 	public static ChopChop getInstance() { return instance; }
 }
