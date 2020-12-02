@@ -28,6 +28,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 
 public class ChopChopCommand implements CommandExecutor, TabCompleter {
 	
@@ -43,21 +44,27 @@ public class ChopChopCommand implements CommandExecutor, TabCompleter {
 			return true;
 			
 		} else if(args.length == 1) {
+			String msg = "";
+			
 			if(args[0].equalsIgnoreCase("on")) {
 				ChopChopConfig.enabled = true;
 				plugin.getLogger().info("Plugin enabled");
-				sender.sendMessage(ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Plugin " + ChatColor.GREEN + "enabled");
+				msg = ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Plugin " + ChatColor.GREEN + "enabled";
 				
 			} else if(args[0].equalsIgnoreCase("off")) {
 				ChopChopConfig.enabled = false;
 				plugin.getLogger().info("Plugin disabled");
-				sender.sendMessage(ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Plugin " + ChatColor.RED + "disabled");
+				msg = ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Plugin " + ChatColor.RED + "disabled";
 				
 			} else if(args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("rl")) {
 				ChopChopConfig.reload();
-				sender.sendMessage(ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Config reloaded");
+				plugin.getUpdater().init();
+				msg = ChatColor.GOLD + "[ChopChop] " + ChatColor.YELLOW + "Config reloaded";
 				
 			} else return false;
+			
+			if(sender instanceof Player) sender.sendMessage(msg);
+			
 			return true;
 		}
 		
