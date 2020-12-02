@@ -37,3 +37,7 @@ enable-mushrooms: true
 # Allows the plugin to collect anonymous data about the server. Collected data can be found on https://bstats.org/plugin/bukkit/ChopChop/9489
 # Default: true
 send-metrics: true
+
+
+# Internal use only, do not edit. (Currently not implemented)
+config-version: 1
