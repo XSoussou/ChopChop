@@ -46,7 +46,9 @@ public class ChopChopConfig {
 	public static final Set<Material> AXES_MATERIALS = VersionUtil.getCompatibleAxesMaterials();
 	public static final Map<Material, Set<Material>> MUSHROOMS_MATERIALS = VersionUtil.getCompatibleMushroomsMaterials();
 	
-	// Contains the max distances per tree type (ACACIA, BIRCH, DARK_OAK, JUNGLE, OAK, SPRUCE, MUSHROOM, CRIMSON, WARPED)
+	/*
+	 *  Contains the max distances per tree type (ACACIA, BIRCH, DARK_OAK, JUNGLE, OAK, SPRUCE, MUSHROOM, CRIMSON, WARPED)
+	 */
 	private static final double[] BRANCH_MAX_DISTANCES = {4, 1, 3, 5, 7, 1, 1, 3, 3};
 	private static final double[] LEAF_MAX_DISTANCES = {3, 3, 3, 5, 3, 3, 3, 5, 5};
 	
@@ -70,7 +72,7 @@ public class ChopChopConfig {
 		List<Material> mushrooms = new ArrayList<>(MUSHROOMS_MATERIALS.keySet());
 		
 		/*
-		 * Initializing the max distance maps
+		 * Initializing max distance maps
 		 */
 		for(int i = 0; i < logs.size(); i++) {
 			MAX_BRANCH_DISTANCE_FROM_TREE.put(logs.get(i), BRANCH_MAX_DISTANCES[i]);

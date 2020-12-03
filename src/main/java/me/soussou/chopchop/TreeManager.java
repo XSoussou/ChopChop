@@ -48,11 +48,11 @@ public class TreeManager {
 	/*
 	 * Vectors used to find tree blocks relative to other blocks.
 	 */
-	private static final Set<Vector> MAIN_RELATIVES = new HashSet<>();
-	private static final Set<Vector> TRUNK_RELATIVES = new HashSet<>();
-	private static final Set<Vector> BRANCHES_RELATIVES = new HashSet<>();
-	private static final Set<Vector> LEAVES_RELATIVES = new HashSet<>();
-	private static final Set<Vector> MUSHROOM_BRANCHES_RELATIVES = new HashSet<>();
+	private static final Set<Vector> MAIN_RELATIVES = new HashSet<>(), 
+		TRUNK_RELATIVES = new HashSet<>(), 
+		BRANCHES_RELATIVES = new HashSet<>(), 
+		LEAVES_RELATIVES = new HashSet<>(), 
+		MUSHROOM_BRANCHES_RELATIVES = new HashSet<>();
 	
 	private Set<Block> treeBlocks = new LinkedHashSet<>();
 	private Set<Material> leavesMaterials = new HashSet<>();

@@ -91,7 +91,7 @@ public class Updater {
 		
 		InputStream in = url.openStream();
 		Document pom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
-		NodeList elements = pom.getFirstChild().getChildNodes(); // Every element of the main <project> node
+		NodeList elements = pom.getFirstChild().getChildNodes(); // Elements of the main <project> node
 		
 		for(int i = 0; i < elements.getLength(); i++) {
 			Node node = elements.item(i);
@@ -101,7 +101,6 @@ public class Updater {
 				break;
 			}
 		}
-		
 		in.close();
 		
 		return version;
