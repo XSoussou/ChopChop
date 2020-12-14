@@ -16,7 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Cache
+      # Caches
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -32,10 +38,17 @@ jobs:
 
       # Build the project
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B clean package --file pom.xml
 
       # Upload the .jar file
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
         with:
           path: target/*.jar
+
+      # Quality Gate
+      - name: SonarCloud Code Analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
