@@ -54,8 +54,8 @@ public class TreeManager {
 		LEAVES_RELATIVES = new HashSet<>(), 
 		MUSHROOM_BRANCHES_RELATIVES = new HashSet<>();
 	
-	private Set<Block> treeBlocks = new LinkedHashSet<>();
-	private Set<Material> leavesMaterials = new HashSet<>();
+	private Set<Block> treeBlocks;
+	private Set<Material> leavesMaterials;
 	
 	private Block baseTreeBlock;
 	private Material treeMaterial;
@@ -119,6 +119,7 @@ public class TreeManager {
 		this.treeMaterial = baseTreeBlock.getType();
 		this.isMushroom = ChopChopConfig.MUSHROOMS_MATERIALS.containsKey(this.treeMaterial);
 		
+		this.leavesMaterials = new HashSet<>();
 		if(this.isMushroom) this.leavesMaterials.addAll(ChopChopConfig.MUSHROOMS_MATERIALS.get(this.treeMaterial));
 		else this.leavesMaterials.add(getLeavesMaterial(this.treeMaterial));
 		
@@ -154,7 +155,7 @@ public class TreeManager {
 		
 		if((logsClone.size() - this.treeBlocks.size() < ChopChopConfig.MIN_LEAF_COUNT) && 
 			!this.isMushroom) 
-				return null;
+				return new LinkedHashSet<>();
 		
 		if(ChopChopConfig.destroyLeaves || // Config: "destroy-leaves"
 			this.isMushroom) 
@@ -165,7 +166,8 @@ public class TreeManager {
 	
 	private Set<Block> getTreeTrunk(Block treeBlock) {
 		Set<Block> trunk = new LinkedHashSet<>();
-		int oldSize, y = 0;
+		int oldSize;
+		int y = 0;
 		
 		do {
 			oldSize = trunk.size();
@@ -246,19 +248,17 @@ public class TreeManager {
 	}
 	
 	private boolean isBranchInTreeRange(Block branchBlock) {
-		int distanceX = this.baseTreeBlock.getX() - branchBlock.getX();
-		int distanceZ = this.baseTreeBlock.getZ() - branchBlock.getZ();
+		double distanceX = this.baseTreeBlock.getX() - branchBlock.getX();
+		double distanceZ = this.baseTreeBlock.getZ() - branchBlock.getZ();
 		double distanceSquared = (distanceX * distanceX) + (distanceZ * distanceZ);
 		
-		if(distanceSquared < this.maxBranchDistanceFromTreeSquared) return true;
-		
-		return false;
+		return distanceSquared < this.maxBranchDistanceFromTreeSquared;
 	}
 	
 	private boolean isLeafInTreeRange(Block leafBlock) {
 		for(Block treeBlock : this.treeBlocks) {
-			int distanceX = treeBlock.getX() - leafBlock.getX();
-			int distanceZ = treeBlock.getZ() - leafBlock.getZ();
+			double distanceX = treeBlock.getX() - leafBlock.getX();
+			double distanceZ = treeBlock.getZ() - leafBlock.getZ();
 			double distanceSquared = (distanceX * distanceX) + (distanceZ * distanceZ);
 			
 			if(distanceSquared < this.maxLeafDistanceFromTreeSquared) return true;

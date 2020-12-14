@@ -34,7 +34,11 @@ public class ChopChopCommand implements CommandExecutor, TabCompleter {
 	
 	private static final String[] CMD_ARGS = {"on", "off", "reload"};
 	
-	private ChopChop plugin = ChopChop.getInstance();
+	private ChopChop plugin;
+	
+	public ChopChopCommand(ChopChop plugin) {
+		this.plugin = plugin;
+	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

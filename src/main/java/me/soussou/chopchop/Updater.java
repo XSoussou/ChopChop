@@ -22,8 +22,10 @@ package me.soussou.chopchop;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -59,14 +61,14 @@ public class Updater {
 				public void run() {
 					if(plugin.isEnabled() && ChopChopConfig.enableUpdater) {
 						try {
-							checkUpdates();
-						} catch (IOException | SAXException | ParserConfigurationException e) {
-							plugin.getLogger().warning("Failed to check for update");
+							checkForUpdates();
+						} catch (MalformedURLException e) {
+							plugin.getLogger().warning("Invalid URL for updates");
 						}
 						
 					} else this.cancel();
 				}
-			}.runTaskTimerAsynchronously(this.plugin, 60, 20 * 60 * 60 * 6); // Runs every 6 hours
+			}.runTaskTimerAsynchronously(this.plugin, 20L * 3, 20L * 60 * 60 * 6); // Runs every 6 hours
 			
 		} else if(this.timer != null) {
 			// Correctly remove the timer so it can be reinitialized later if the config changes
@@ -75,22 +77,31 @@ public class Updater {
 		}
 	}
 	
-	private void checkUpdates() throws IOException, SAXException, ParserConfigurationException {
+	private void checkForUpdates() throws MalformedURLException {
 		URL url = new URL(POM_URL);
 		
-		String currentVersion = plugin.getDescription().getVersion();
-		String newVersion = getXmlVersion(url);
-		
-		if(isNewerVersion(currentVersion, newVersion)) {
-			plugin.getLogger().info("New update v" + newVersion + " - Download from GitHub: " + GITHUB_URL);
+		try(InputStream in = url.openStream()) {
+			
+			String currentVersion = plugin.getDescription().getVersion();
+			String newVersion = getXmlVersion(in);
+			
+			if(isNewerVersion(currentVersion, newVersion)) {
+				plugin.getLogger().info("New update v" + newVersion + " - Download from GitHub: " + GITHUB_URL);
+			}
+		} catch (SAXException | IOException | ParserConfigurationException e) {
+			plugin.getLogger().warning("Failed to check for updates");
 		}
 	}
 	
-	private String getXmlVersion(URL url) throws IOException, SAXException, ParserConfigurationException {
+	private String getXmlVersion(InputStream in) throws SAXException, IOException, ParserConfigurationException {
 		String version = "";
 		
-		InputStream in = url.openStream();
-		Document pom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
+		DocumentBuilderFactory builder = DocumentBuilderFactory.newInstance();
+		
+		builder.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		builder.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Fix for XXE vulnerabilities
+		
+		Document pom = builder.newDocumentBuilder().parse(in);
 		NodeList elements = pom.getFirstChild().getChildNodes(); // Elements of the main <project> node
 		
 		for(int i = 0; i < elements.getLength(); i++) {
@@ -101,7 +112,6 @@ public class Updater {
 				break;
 			}
 		}
-		in.close();
 		
 		return version;
 	}
