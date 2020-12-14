@@ -248,18 +248,18 @@ public class TreeManager {
 	}
 	
 	private boolean isBranchInTreeRange(Block branchBlock) {
-		double distanceX = this.baseTreeBlock.getX() - branchBlock.getX();
-		double distanceZ = this.baseTreeBlock.getZ() - branchBlock.getZ();
-		double distanceSquared = (distanceX * distanceX) + (distanceZ * distanceZ);
+		int distanceX = this.baseTreeBlock.getX() - branchBlock.getX();
+		int distanceZ = this.baseTreeBlock.getZ() - branchBlock.getZ();
+		double distanceSquared = (double) (distanceX * distanceX) + (distanceZ * distanceZ);
 		
 		return distanceSquared < this.maxBranchDistanceFromTreeSquared;
 	}
 	
 	private boolean isLeafInTreeRange(Block leafBlock) {
 		for(Block treeBlock : this.treeBlocks) {
-			double distanceX = treeBlock.getX() - leafBlock.getX();
-			double distanceZ = treeBlock.getZ() - leafBlock.getZ();
-			double distanceSquared = (distanceX * distanceX) + (distanceZ * distanceZ);
+			int distanceX = treeBlock.getX() - leafBlock.getX();
+			int distanceZ = treeBlock.getZ() - leafBlock.getZ();
+			double distanceSquared = (double) (distanceX * distanceX) + (distanceZ * distanceZ);
 			
 			if(distanceSquared < this.maxLeafDistanceFromTreeSquared) return true;
 		}
