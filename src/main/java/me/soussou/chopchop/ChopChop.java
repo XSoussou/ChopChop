@@ -28,26 +28,20 @@ public class ChopChop extends JavaPlugin implements Listener {
 	
 	private static final int METRICS_ID = 9489;
 	
-	private static ChopChop instance;
-	
 	private Updater updater;
-	private Metrics metrics;
 	
 	@Override
 	public void onEnable() {
-		instance = this;
 		this.updater = new Updater(this);
 		
 		saveDefaultConfig();
-		ChopChopConfig.load();
+		ChopChopConfig.init(this);
 		
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
-		getCommand("chopchop").setExecutor(new ChopChopCommand());
+		getCommand("chopchop").setExecutor(new ChopChopCommand(this));
 		
-		if(ChopChopConfig.sendMetrics) metrics = new Metrics(this, METRICS_ID);
+		if(ChopChopConfig.sendMetrics) new Metrics(this, METRICS_ID);
 	}
 	
 	public Updater getUpdater() { return this.updater; }
-	
-	public static ChopChop getInstance() { return instance; }
 }

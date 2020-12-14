@@ -65,6 +65,6 @@ public class BlockListener implements Listener {
 		TreeManager tree = new TreeManager(block);
 		Set<Block> treeBlocks = tree.detectTree();
 		
-		if(treeBlocks != null) tree.cutTree(player, item, treeBlocks);
+		if(!treeBlocks.isEmpty()) tree.cutTree(player, item, treeBlocks);
 	}
 }

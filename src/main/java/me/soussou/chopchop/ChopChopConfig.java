@@ -53,19 +53,19 @@ public class ChopChopConfig {
 	private static final double[] LEAF_MAX_DISTANCES = {3, 3, 3, 5, 3, 3, 3, 5, 5};
 	
 	public static String activationMode = "sneak";
-	public static boolean enabled = true;
-	public static boolean wearOff = true;
-	public static boolean onlyAxes = true;
-	public static boolean onlyBreakUpwards = true;
-	public static boolean allowInCreative = true;
-	public static boolean destroyLeaves = true;
-	public static boolean silkTouchDamage = true;
-	public static boolean enableMushrooms = true;
-	public static boolean sendMetrics = true;
-	public static boolean enableUpdater = true;
+	public static boolean enabled = true,
+		wearOff = true,
+		onlyAxes = true,
+		onlyBreakUpwards = true,
+		allowInCreative = true,
+		destroyLeaves = true,
+		silkTouchDamage = true,
+		enableMushrooms = true,
+		sendMetrics = true,
+		enableUpdater = true;
 	public static int configVersion = 1;
 	
-	private static ChopChop plugin = ChopChop.getInstance();
+	private static ChopChop plugin;
 	
 	static {
 		List<Material> logs = new ArrayList<>(LOGS_MATERIALS);
@@ -83,6 +83,11 @@ public class ChopChopConfig {
 			MAX_BRANCH_DISTANCE_FROM_TREE.put(mushrooms.get(i), BRANCH_MAX_DISTANCES[i + logs.size()]);
 			MAX_LEAF_DISTANCE_FROM_TREE.put(mushrooms.get(i), LEAF_MAX_DISTANCES[i + logs.size()]);
 		}
+	}
+	
+	public static void init(ChopChop instance) {
+		plugin = instance;
+		load();
 	}
 	
 	public static void load() {
